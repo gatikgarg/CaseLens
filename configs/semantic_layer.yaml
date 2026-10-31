@@ -1,0 +1,56 @@
+source: ticket_facts
+dimensions:
+  category:
+    expr: category
+    kind: categorical
+  priority:
+    expr: priority
+    kind: categorical
+  project:
+    expr: project_id
+    kind: categorical
+  status:
+    expr: status
+    kind: categorical
+  has_conversation:
+    expr: has_conversation
+    kind: categorical
+  created_day:
+    expr: date_trunc('day', created_at)
+    kind: time
+  created_week:
+    expr: date_trunc('week', created_at)
+    kind: time
+  created_month:
+    expr: date_trunc('month', created_at)
+    kind: time
+  created_quarter:
+    expr: date_trunc('quarter', created_at)
+    kind: time
+  created_year:
+    expr: date_trunc('year', created_at)
+    kind: time
+metrics:
+  ticket_count:
+    expr: COUNT(*)
+    unit: tickets
+  resolved_count:
+    expr: COUNT(*) FILTER (WHERE is_resolved)
+    unit: tickets
+  avg_resolution_hours:
+    expr: AVG(resolution_hours)
+    unit: hours
+    needs_non_null: resolution_hours
+  median_resolution_hours:
+    expr: PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY resolution_hours)
+    unit: hours
+    needs_non_null: resolution_hours
+  p90_resolution_hours:
+    expr: PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY resolution_hours)
+    unit: hours
+    needs_non_null: resolution_hours
+  avg_reassignments:
+    expr: AVG(n_reassignments)
+    unit: count
+max_rows: 500
+

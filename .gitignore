@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+data/
+node_modules/
+frontend/dist/
+backend/app/static/*
+!backend/app/static/.gitkeep
+evaluation/results/*.tmp
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+test.html
+

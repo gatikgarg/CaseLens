@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: supportlens
+      POSTGRES_PASSWORD: supportlens
+      POSTGRES_DB: supportlens
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U supportlens"]
+      interval: 5s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    ports: ["6333:6333"]
+    volumes: ["qdrant_data:/qdrant/storage"]
+
+  app:
+    build: { context: ., dockerfile: backend/Dockerfile }
+    profiles: ["app"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://supportlens:supportlens@postgres:5432/supportlens
+      QDRANT_URL: http://qdrant:6333
+    depends_on:
+      postgres: { condition: service_healthy }
+      qdrant: { condition: service_started }
+    ports: ["8000:8000"]
+    volumes:
+      - "./data:/app/data"
+      - "./configs:/app/configs"
+      - "model_cache:/root/.cache"
+
+volumes:
+  pgdata:
+  qdrant_data:
+  model_cache:
+

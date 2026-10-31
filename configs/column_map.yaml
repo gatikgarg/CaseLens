@@ -1,0 +1,46 @@
+# Filled in during Phase 3/4 after running the profiling script against the
+# real Mendeley Help Desk Tickets v3 CSV files. Keys on the left are fixed
+# canonical names; values are the actual CSV headers. A null mapping means the
+# field is simply absent from the canonical table (raw columns are preserved
+# in the `raw` JSONB column). Do NOT guess column names.
+source_name: mendeley_helpdesk_v3
+files:
+  tickets: issues.csv
+  events: issues_change_history.csv
+  snapshots: issues_snapshot.csv
+  utterances: sample_utterances.csv
+  holidays: holidays_by_country.csv
+tickets:
+  ticket_id: null
+  project_id: null
+  category: null
+  priority: null
+  status: null
+  created_at: null
+  resolved_at: null
+  title: null
+  description: null
+  country: null
+events:
+  ticket_id: null
+  changed_at: null
+  field: null
+  old_value: null
+  new_value: null
+utterances:
+  utterance_id: null
+  ticket_id: null
+  speaker_role: null
+  text: null
+  sent_at: null
+  seq: null
+holidays:
+  country: null
+  day: null
+  name: null
+snapshots:
+  ticket_id: null
+  snapshot_at: null
+timestamp_format: null
+
+

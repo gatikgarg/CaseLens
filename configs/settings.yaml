@@ -1,0 +1,24 @@
+retrieval:
+  n_candidates: 50
+  rrf_k: 60
+  default_top_k: 8
+  max_chunks_per_ticket: 3
+  context_token_budget: 6000
+
+chunking:
+  max_tokens: 256
+  overlap_turns: 1
+
+agent:
+  max_iterations:
+    fast: 4
+    thorough: 8
+  repair_attempts: 1
+
+model:
+  dense: "BAAI/bge-m3"
+  dense_dim: 1024
+  dense_query_prefix: ""
+  sparse: "Qdrant/bm25"
+  reranker: "BAAI/bge-reranker-v2-m3"
+

@@ -1,0 +1,63 @@
+# Retrieval ablation matrix. tune on retrieval_dev.jsonl, report on test.
+ablations:
+  - id: R1
+    dense: true
+    bm25: false
+    fusion: none
+    rewrite: false
+    expansion: false
+    rerank: false
+    notes: dense baseline
+  - id: R2
+    dense: false
+    bm25: true
+    fusion: none
+    rewrite: false
+    expansion: false
+    rerank: false
+    notes: bm25 baseline
+  - id: R3
+    dense: true
+    bm25: true
+    fusion: rrf
+    rewrite: false
+    expansion: false
+    rerank: false
+    notes: client-side RRF
+  - id: R4
+    dense: true
+    bm25: true
+    fusion: qdrant_native_rrf
+    rewrite: false
+    expansion: false
+    rerank: false
+    notes: Qdrant-native RRF (compare with R3)
+  - id: R5
+    dense: true
+    bm25: true
+    fusion: rrf
+    rewrite: false
+    expansion: false
+    rerank: true
+    notes: RRF + rerank
+  - id: R6
+    dense: true
+    bm25: true
+    fusion: rrf
+    rewrite: true
+    expansion: false
+    rerank: true
+    notes: RRF + rewrite + rerank
+  - id: R7
+    dense: true
+    bm25: true
+    fusion: rrf
+    rewrite: true
+    expansion: true
+    rerank: true
+    notes: full pipeline
+defaults:
+  top_k: 8
+  n_candidates: 50
+  rrf_k: 60
+
